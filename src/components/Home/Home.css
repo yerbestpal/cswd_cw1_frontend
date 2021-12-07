@@ -1,0 +1,20 @@
+header {
+    position: relative;
+    /*height: 800px;*/
+}
+
+.splash {
+    /*width: 500px;*/
+    /*height: 800px;*/
+}
+
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.splash-text {
+    font-size: 300%;
+}
