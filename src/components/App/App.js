@@ -5,18 +5,21 @@ import NavBar from '../Navbar/NavBar'
 import { Route, Routes } from 'react-router-dom'
 import Hostels from '../Hostels/Hostels'
 import Itinerary from '../Itinerary/Itinerary'
+import HostelsContext from '../Hostels/HostelsContext'
 
 export default function App () {
   return (
       <div className="App">
-        <NavBar/>
+        <HostelsContext.Provider>
+          <NavBar/>
 
-        <Routes>
-          <Route path="/*" element={<Home />}/>
-          <Route path="/hostels" element={<Hostels />}/>
-          <Route path="/itinerary" element={<Itinerary />}/>
-          <Route path='/:id' element={<p>Sorry, that page was not found!</p>}/>
-        </Routes>
+          <Routes>
+            <Route path="/*" element={<Home />}/>
+            <Route path="/hostels" element={<Hostels />}/>
+            <Route path="/itinerary" element={<Itinerary />}/>
+            <Route path='/:id' element={<p>Sorry, that page was not found!</p>}/>
+          </Routes>
+        </HostelsContext.Provider>
       </div>
   )
 }
