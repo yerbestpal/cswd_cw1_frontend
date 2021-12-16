@@ -18,7 +18,6 @@ const HostelListItem = ({ hostel }) => {
       </ListGroupItem>
 
       <Routes>
-        {/* <Route path={`hostel/:id`} element={<Hostel hostel={hostel} />} /> */}
         <Route path='hostel' element={<p>Sorry, we couldn't find that hostel.</p>}/>
       </Routes>
     </>

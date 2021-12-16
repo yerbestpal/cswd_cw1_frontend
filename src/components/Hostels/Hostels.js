@@ -8,10 +8,10 @@ const Hostels = ({ hostels }) => {
   const [searchString, setSearchString] = useState('')
   return (
     <div className='d-flex flex-column min-vh-100'>
-      <Container>
+      <Container  className="py-5">
       <Row>
         <Col className='d-flex align-items-center justify-content-around'>
-          <h1>Hostels</h1>
+          <h1 className="pt-5">Hostels</h1>
         </Col>
       </Row>
       <Row>

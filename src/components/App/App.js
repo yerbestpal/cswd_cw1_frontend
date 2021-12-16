@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from '../Navbar/NavBar'
 import { Route, Routes } from 'react-router-dom'
 import Hostels from '../Hostels/Hostels'
-import Itinerary from '../Itinerary/Itinerary'
+import Itineraries from '../Itinerary/Itineraries'
 import HostelsContext from '../Hostels/HostelsContext'
 import dataSource from '../../data'
 import Hostel from '../Hostels/Hostel'
@@ -38,7 +38,7 @@ export default function App () {
             <Route path="/" element={<Home />}/>
             <Route path="hostels/*" element={<Hostels hostels={hostels} />}/>
             <Route path="hostels/:id" element={<Hostel hostels={hostels} />}/>
-            <Route path="itinerary" element={<Itinerary />}/>
+            <Route path="itineraries/*" element={<Itineraries hostels={hostels} />}/>
             <Route path=':id' element={<p>Sorry, that page was not found.</p>}/>
           </Routes>
         </HostelsContext.Provider>
