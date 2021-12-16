@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import dataSource from '../../data'
 import { Loader } from '@googlemaps/js-api-loader'
 import RatingsChart from "../Chart/Chart"
+import Reviews from "../Reviews/Reviews"
 
 const Hostel = ({ hostels }) => {
   const { id } = useParams()
@@ -80,6 +81,12 @@ const Hostel = ({ hostels }) => {
         </Col>
       </Row>
       <RatingsChart hostel={{hostel, setHostel}}/>
+      <hr/>
+      <Row className="py-5">
+        <Col className="col-sm-12 col-md-12">
+          <Reviews hostel={{hostel, setHostel}}/>
+        </Col>
+      </Row>
     </Container>
     </>
   )
