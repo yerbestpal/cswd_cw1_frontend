@@ -1,4 +1,4 @@
 import { createContext } from "react"
 
-const HostelsContext = createContext()
+const HostelsContext = createContext('hostels')
 export default HostelsContext
