@@ -7,12 +7,6 @@ import NewItineraryStageDialog from "./NewItineraryStageDialog"
 const ItineraryListItem = ({ itinerary }) => {
   const [newItinerary, setNewItinerary] = useState(itinerary)
   let count = 0
-  // const itineraryStages = newItinerary.stages.map(stage => {
-  //   count++
-  //   return <ItineraryStage key={count} stage={stage} eventKey={count} itinerary={{ newItinerary, setNewItinerary }}/>
-  // })
-
-  // const [stagesList, setStagesList] = useState(itineraryStages)
 
   const [showHideNewStageDialog, setShowHideNewStageDialog] = useState()
 
@@ -29,7 +23,6 @@ const ItineraryListItem = ({ itinerary }) => {
   const nsDialog = <NewItineraryStageDialog 
   itinerary={{ newItinerary, setNewItinerary }}
   stageNum={newItinerary.stages.length + 1}
-  // stages={{stagesList, setStagesList}}
   hideStageShowButton={() => hideStageShowButton()}
 />
   

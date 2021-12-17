@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from "react"
-import { Card, Button, Row, FloatingLabel, Form, Col } from "react-bootstrap"
+import { Card, Button, Row, FloatingLabel, Form, Col, InputGroup } from "react-bootstrap"
 import dataSource from "../../data"
 import FeatherIcon from 'feather-icons-react'
 
-const UpdateStageDialog = ({ itinerary, stageNum, stages, hideUpdate }) => {
-  console.log(itinerary)
+const UpdateStageDialog = ({ itinerary, stageNum, hideUpdate }) => {
   const [hostels, setHostels] = useState([])
   const [durationInputValue, setDurationInputValue] = useState('')
   const [hostelInputValue, setHostelInputValue] = useState('')
+  const [validated, setValidated] = useState(false)
 
-  const handleDurationChange = e => setDurationInputValue(e.currentTarget.value)
+  const handleValidation = (event) => {
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    } else {
+      setValidated(true)
+    }
+  };
+
   const handleHostelChange = e => setHostelInputValue(e.currentTarget.value)
+  const handleDurationChange = e => setDurationInputValue(e.currentTarget.value)
 
   const updateStage = (hostelId, nights) => {
     const queryText = JSON.stringify(
@@ -21,13 +31,13 @@ const UpdateStageDialog = ({ itinerary, stageNum, stages, hideUpdate }) => {
     )
     const getItinerary = async () => {
       try {
-        const response = await fetch(`${dataSource.baseURL}itineraries/stages/update/${itinerary.user}/${stageNum}`, {
+        const response = await fetch(`${dataSource.baseURL}itineraries/stages/update/${itinerary.newItinerary.user}/${stageNum}`, {
         method: 'POST',
         headers: dataSource.headers,
         body: queryText
       })
       const data = await response.json()
-      itinerary.setItinerary(data)
+      itinerary.setNewItinerary(data)
       } catch (error) {
         console.error(error)
         return null
@@ -58,6 +68,7 @@ const UpdateStageDialog = ({ itinerary, stageNum, stages, hideUpdate }) => {
     }
     fetchedHostels()
   }, [])
+  console.log(validated)
   return (
     <Card bg="light" text="dark" className="my-2">
       <Card.Header className="d-flex justify-content-between">
@@ -65,22 +76,29 @@ const UpdateStageDialog = ({ itinerary, stageNum, stages, hideUpdate }) => {
         <div><FeatherIcon as='button' icon="x" size="18" onClick={() => hideUpdate()}/>
         </div></Card.Header>
       <Card.Body>
-        <Form>
+        <Form noValidate validated={validated} onInput={handleValidation}>
           <Row className="g-2">
-            <Col md>
-              <FloatingLabel controlId="floatingInputGrid" label="Duration of nights">
-                <Form.Control required={true} type="text" placeholder="1, 2, 3..." onChange={handleDurationChange} />
-              </FloatingLabel>
-            </Col>
-            <Col md>
-              <FloatingLabel controlId="floatingSelectGrid" label="Select a Hostel">
-                <Form.Select required={true} aria-label="Floating label select example" onChange={handleHostelChange}>
-                  {hostels.map(hostel => <option value={hostel?.id} key={hostel?.id} hostel={hostel}>{hostel?.name}</option>)}
-                </Form.Select>
-              </FloatingLabel>
-            </Col>
+            <Form.Group as={Col} className="col-md-6">
+              <InputGroup hasValidation>
+                <FloatingLabel controlId="floatingInputGrid" label="Duration of nights" required>
+                  <Form.Control required type="text" placeholder="1, 2, 3..." onChange={handleDurationChange} isInvalid />
+                </FloatingLabel>
+                <Form.Control.Feedback type="invalid">Please provide a valid numeric duration.</Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+            <Form.Group as={Col} className="col-md-6">
+              <InputGroup hasValidation>
+                <FloatingLabel controlId="floatingSelectGrid" label="Select a Hostel" required>
+                  <Form.Select required aria-label="Floating label select example" onChange={handleHostelChange}>
+                    <option hidden disabled selected value=''>Select a hostel</option>
+                    {hostels.map(hostel => <option value={hostel?.id} key={hostel?.id} hostel={hostel}>{hostel?.name}</option>)}
+                  </Form.Select>
+                </FloatingLabel>
+                {/* <Form.Select.Feedback type="invalid">Please select a hostel.</Form.Select.Feedback> */}
+              </InputGroup>
+            </Form.Group>
             <div className="d-flex justify-content-start mt-3">
-              <Button variant="secondary" onClick={handleSubmit}>Update Stage</Button>
+              <Button variant="secondary" onClick={validated ? handleSubmit : null}>Update Stage</Button>
             </div>
           </Row>
         </Form>
