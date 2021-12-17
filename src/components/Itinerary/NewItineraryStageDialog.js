@@ -95,7 +95,7 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, hideStageShowButton }) =
               </InputGroup>
             </Form.Group>
             <div className="d-flex justify-content-start mt-3">
-              <Button variant="secondary" onClick={validated ? handleSubmit : null}>Update Stage</Button>
+              <Button variant="secondary" onClick={validated ? handleSubmit : null}>Add Stage</Button>
             </div>
           </Row>
         </Form>
