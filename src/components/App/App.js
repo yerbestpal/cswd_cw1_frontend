@@ -5,7 +5,6 @@ import NavBar from '../Navbar/NavBar'
 import { Route, Routes } from 'react-router-dom'
 import Hostels from '../Hostels/Hostels'
 import Itineraries from '../Itinerary/Itineraries'
-import HostelsContext from '../Hostels/HostelsContext'
 import dataSource from '../../data'
 import Hostel from '../Hostels/Hostel'
 
@@ -31,7 +30,6 @@ export default function App () {
 
   return (
       <div className="App">
-        <HostelsContext.Provider value={{ hostels, setHostels }}>
           <NavBar/>
 
           <Routes>
@@ -41,7 +39,6 @@ export default function App () {
             <Route path="itineraries/*" element={<Itineraries hostels={hostels} />}/>
             <Route path=':id' element={<p>Sorry, that page was not found.</p>}/>
           </Routes>
-        </HostelsContext.Provider>
       </div>
   )
 }
