@@ -25,6 +25,23 @@ const ItineraryStage = ({ itinerary, stage, eventKey }) => {
     fetchedHostel()
   }, [id])
 
+  const deleteStage = () => {
+    const getItinerary = async () => {
+      try {
+        const response = await fetch(`${dataSource.baseURL}itineraries/stages/delete/${itinerary.newItinerary.user}/${stage.stage}`, {
+        method: 'GET',
+        headers: dataSource.headers
+      })
+      const data = await response.json()
+      itinerary.setNewItinerary(data)
+      } catch (error) {
+        console.error(error)
+        return null
+      }
+    }
+    getItinerary()
+  }
+
   const sum = hostel?.ratings.reduce((a, b) => a + b, 0)
   const avg = (sum / hostel?.ratings.length) || 0
 
@@ -32,7 +49,7 @@ const ItineraryStage = ({ itinerary, stage, eventKey }) => {
     <div className="d-flex justify-content-start">
       <Button variant="outline-warning" onClick={() => showUpdate()}>Update</Button>
       &nbsp;
-      <Button variant="outline-danger">Delete</Button>
+      <Button variant="outline-danger" onClick={() => deleteStage()}>Delete</Button>
     </div>
   )
 
