@@ -68,7 +68,7 @@ const UpdateStageDialog = ({ itinerary, stageNum, hideUpdate }) => {
     }
     fetchedHostels()
   }, [])
-  console.log(validated)
+
   return (
     <Card bg="light" text="dark" className="my-2">
       <Card.Header className="d-flex justify-content-between">
