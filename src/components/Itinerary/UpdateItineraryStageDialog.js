@@ -83,7 +83,6 @@ const UpdateStageDialog = ({ itinerary, stageNum, hideUpdate }) => {
                 <FloatingLabel controlId="floatingInputGrid" label="Duration of nights" required>
                   <Form.Control required type="text" placeholder="1, 2, 3..." onChange={handleDurationChange} isInvalid />
                 </FloatingLabel>
-                <Form.Control.Feedback type="invalid">Please provide a valid numeric duration.</Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
             <Form.Group as={Col} className="col-md-6">
@@ -94,7 +93,6 @@ const UpdateStageDialog = ({ itinerary, stageNum, hideUpdate }) => {
                     {hostels.map(hostel => <option value={hostel?.id} key={hostel?.id} hostel={hostel}>{hostel?.name}</option>)}
                   </Form.Select>
                 </FloatingLabel>
-                {/* <Form.Select.Feedback type="invalid">Please select a hostel.</Form.Select.Feedback> */}
               </InputGroup>
             </Form.Group>
             <div className="d-flex justify-content-start mt-3">
