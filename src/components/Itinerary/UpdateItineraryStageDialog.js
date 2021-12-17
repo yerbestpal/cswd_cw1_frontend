@@ -17,7 +17,7 @@ const UpdateStageDialog = ({ itinerary, stageNum, hideUpdate }) => {
     } else {
       setValidated(true)
     }
-  };
+  }
 
   const handleHostelChange = e => setHostelInputValue(e.currentTarget.value)
   const handleDurationChange = e => setDurationInputValue(e.currentTarget.value)
@@ -72,7 +72,7 @@ const UpdateStageDialog = ({ itinerary, stageNum, hideUpdate }) => {
   return (
     <Card bg="light" text="dark" className="my-2">
       <Card.Header className="d-flex justify-content-between">
-        <div>New Stage ({parseInt(stageNum)}) - {itinerary.user}</div> 
+        <div>Updating Stage ({parseInt(stageNum)}) - {itinerary.newItinerary.user}</div> 
         <div><FeatherIcon as='button' icon="x" size="18" onClick={() => hideUpdate()}/>
         </div></Card.Header>
       <Card.Body>
