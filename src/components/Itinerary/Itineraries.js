@@ -1,13 +1,38 @@
 import React, { useEffect, useState } from "react"
-import { Container, Row, Col, InputGroup, FormControl, ListGroup } from "react-bootstrap"
+import { Container, Row, Col, InputGroup, FormControl, ListGroup, Button } from "react-bootstrap"
 import dataSource from "../../data"
 import Footer from "../Footer/Footer"
 import FeatherIcon from 'feather-icons-react'
 import ItineraryListItem from "./ItineraryListItem"
+import NewItineraryDialog from "./NewItineraryDialog"
 
 const Itineraries = () => {
   const [itineraries, setItineraries] = useState([])
   const [searchString, setSearchString] = useState('')
+  const [showHideNewItineraryDialog, setShowHideNewItineraryDialog] = useState()
+
+  const showItineraryHideButton = () => {
+    setShowHideNewItineraryDialog(niDialog)
+    setShowHideNewItineraryButton()
+  }
+
+  const hideItineraryShowButton = () => {
+    setShowHideNewItineraryDialog()
+    setShowHideNewItineraryButton(addNewItineraryBtn)
+  }
+
+  const niDialog = <NewItineraryDialog 
+  itineraries={{ itineraries, setItineraries }}
+  hideItineraryShowButton={() => hideItineraryShowButton()}
+/>
+  
+  const addNewItineraryBtn = (
+    <Row className="my-2 mx-1">
+      <Button variant="primary" onClick={() => showItineraryHideButton()}>Create New Itinerary &nbsp; <FeatherIcon icon="plus" size="18"/></Button>
+    </Row>
+  )
+
+  const [showHideNewItineraryButton, setShowHideNewItineraryButton] = useState(addNewItineraryBtn)
 
   useEffect(() => {
     const fetchedItineraries = async () => {
@@ -60,8 +85,10 @@ const Itineraries = () => {
             }
           }).map(itinerary => {
             count++
-            return <ItineraryListItem className='hostelListItem' key={count} itinerary={itinerary} itineraries={{ itineraries, setItineraries }}/>
+            return <ItineraryListItem className='hostelListItem' key={count} itinerary={itinerary}/>
           })}
+          {showHideNewItineraryDialog}
+          {showHideNewItineraryButton}
         </ListGroup>
       </Container>
       <Footer/>
