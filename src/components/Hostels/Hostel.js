@@ -5,6 +5,7 @@ import dataSource from '../../data'
 import { Loader } from '@googlemaps/js-api-loader'
 import RatingsChart from "../Chart/Chart"
 import Reviews from "../Reviews/Reviews"
+import Footer from '../Footer/Footer'
 
 const Hostel = () => {
   const { id } = useParams()
@@ -53,7 +54,7 @@ const Hostel = () => {
   .catch(e => console.log(e))
 
   return (
-    <>
+    <div className='d-flex flex-column min-vh-100'>
     {/* address, description, email, id, location, name, phone, postcode, ratings, reviews, avgRatings */}
     <Container className="py-5">
       <Row>
@@ -89,7 +90,8 @@ const Hostel = () => {
         </Col>
       </Row>
     </Container>
-    </>
+    <Footer/>
+    </div>
   )
 }
 
