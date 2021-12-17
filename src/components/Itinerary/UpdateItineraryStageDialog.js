@@ -3,7 +3,8 @@ import { Card, Button, Row, FloatingLabel, Form, Col } from "react-bootstrap"
 import dataSource from "../../data"
 import FeatherIcon from 'feather-icons-react'
 
-const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowButton }) => {
+const UpdateStageDialog = ({ itinerary, stageNum, stages, hideUpdate }) => {
+  console.log(itinerary)
   const [hostels, setHostels] = useState([])
   const [durationInputValue, setDurationInputValue] = useState('')
   const [hostelInputValue, setHostelInputValue] = useState('')
@@ -11,7 +12,7 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowBut
   const handleDurationChange = e => setDurationInputValue(e.currentTarget.value)
   const handleHostelChange = e => setHostelInputValue(e.currentTarget.value)
 
-  const addStage = (hostelId, nights) => {
+  const updateStage = (hostelId, nights) => {
     const queryText = JSON.stringify(
       {
         'hostel': hostelId,
@@ -20,13 +21,13 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowBut
     )
     const getItinerary = async () => {
       try {
-        const response = await fetch(`${dataSource.baseURL}itineraries/stages/new/${itinerary.newItinerary.user}`, {
+        const response = await fetch(`${dataSource.baseURL}itineraries/stages/update/${itinerary.user}/${stageNum}`, {
         method: 'POST',
         headers: dataSource.headers,
         body: queryText
       })
       const data = await response.json()
-      itinerary.setNewItinerary(data)
+      itinerary.setItinerary(data)
       } catch (error) {
         console.error(error)
         return null
@@ -37,8 +38,8 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowBut
 
    const handleSubmit = e => {
      e.preventDefault()
-     addStage(hostelInputValue, durationInputValue)
-     hideStageShowButton()
+     updateStage(hostelInputValue, durationInputValue)
+     hideUpdate()
    }
 
   useEffect(() => {
@@ -60,8 +61,8 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowBut
   return (
     <Card bg="light" text="dark" className="my-2">
       <Card.Header className="d-flex justify-content-between">
-        <div>New Stage ({parseInt(stageNum)}) - {itinerary.newItinerary.user}</div> 
-        <div><FeatherIcon as='button' icon="x" size="18" onClick={() => hideStageShowButton()}/>
+        <div>New Stage ({parseInt(stageNum)}) - {itinerary.user}</div> 
+        <div><FeatherIcon as='button' icon="x" size="18" onClick={() => hideUpdate()}/>
         </div></Card.Header>
       <Card.Body>
         <Form>
@@ -79,7 +80,7 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowBut
               </FloatingLabel>
             </Col>
             <div className="d-flex justify-content-start mt-3">
-              <Button variant="secondary" onClick={handleSubmit}>Add Stage</Button>
+              <Button variant="secondary" onClick={handleSubmit}>Update Stage</Button>
             </div>
           </Row>
         </Form>
@@ -88,4 +89,4 @@ const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowBut
   )
 }
 
-export default NewItineraryStageDialog
+export default UpdateStageDialog

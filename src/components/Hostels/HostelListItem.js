@@ -5,7 +5,6 @@ import { Link, Routes, Route } from "react-router-dom"
 const HostelListItem = ({ hostel }) => {
   const sum = hostel.ratings.reduce((a, b) => a + b, 0)
   const avg = (sum / hostel.ratings.length) || 0
-  hostel.avgRating = avg
   return (
     <>
       <ListGroupItem>

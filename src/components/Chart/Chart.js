@@ -22,7 +22,7 @@ const RatingsChart = ({ hostel }) => {
       }
     }
     getHostel()
-}
+  }
 
   const getDistributedRatings = rating => {
     let count = 0

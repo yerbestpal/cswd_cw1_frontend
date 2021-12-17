@@ -1,14 +1,15 @@
 import React, { useState } from "react"
-import { ListGroupItem, Card, Row, Button } from "react-bootstrap"
+import { ListGroupItem, Card, Row, Button, Accordion } from "react-bootstrap"
 import ItineraryStage from "./ItineraryStage"
 import FeatherIcon from 'feather-icons-react'
 import NewItineraryStageDialog from "./NewItineraryStageDialog"
 
-const ItineraryListItem = ({ itinerary, hostels }) => {
+const ItineraryListItem = ({ itinerary }) => {
+  const [newItinerary, setNewItinerary] = useState(itinerary)
   let count = 0
   const itineraryStages = itinerary.stages.map(stage => {
     count++
-    return <ItineraryStage key={count} stage={stage}/>
+    return <ItineraryStage key={count} stage={stage} eventKey={count} itinerary={itinerary}/>
   })
 
   const [stagesList, setStagesList] = useState(itineraryStages)
@@ -25,7 +26,8 @@ const ItineraryListItem = ({ itinerary, hostels }) => {
     setShowHideNewStageButton(addNewStageBtn)
   }
 
-  const nsDialog = <NewItineraryStageDialog hostels={hostels} 
+  const nsDialog = <NewItineraryStageDialog 
+  itinerary={{ newItinerary, setNewItinerary }}
   stageNum={itineraryStages.length + 1}
   stages={{stagesList, setStagesList}}
   hideStageShowButton={() => hideStageShowButton()}
@@ -47,7 +49,9 @@ const ItineraryListItem = ({ itinerary, hostels }) => {
           <Card.Header>{itinerary.user}</Card.Header>
           <Card.Body>
             <Card.Title>Stages</Card.Title>
-            {stagesList}
+              <Accordion defaultActiveKey="0">
+                {stagesList}
+              </Accordion>
             {showHideNewStageDialog}
             {showHideNewStageButton}
           </Card.Body>

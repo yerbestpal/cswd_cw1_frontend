@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { Card, Button } from "react-bootstrap"
+import { Button, Accordion } from "react-bootstrap"
 import dataSource from "../../data"
+import UpdateStageDialog from '../Itinerary/UpdateItineraryStageDialog'
+import StageCard from "./StageCard"
 
-const ItineraryStage = ({ stage }) => {
+const ItineraryStage = ({ itinerary, stage, eventKey }) => {
   const id = stage.hostel
   const [hostel, setHostel] = useState()
 
@@ -23,18 +25,44 @@ const ItineraryStage = ({ stage }) => {
     fetchedHostel()
   }, [id])
 
+  const sum = hostel?.ratings.reduce((a, b) => a + b, 0)
+  const avg = (sum / hostel?.ratings.length) || 0
+
+  const Buttons = () => (
+    <div className="d-flex justify-content-start">
+      <Button variant="outline-warning" onClick={() => showUpdate()}>Update</Button>
+      &nbsp;
+      <Button variant="outline-danger">Delete</Button>
+    </div>
+  )
+
+  const stageCard = <StageCard h={hostel} avgRating={avg} stage={stage}/>
+
+  const [showHideUpdateStageDialog, setShowHideUpdateStageDialog] = useState()
+  const [showHideButtons, setShowHideButtons] = useState(Buttons)
+
+  const hideUpdate = () => {
+    setShowHideUpdateStageDialog()
+    setShowHideButtons(Buttons)
+  }
+
+  const showUpdate = () => {
+    setShowHideUpdateStageDialog(updateStageDialog)
+    setShowHideButtons()
+  }
+
+  const updateStageDialog = () => 
+  <UpdateStageDialog hideUpdate={() => hideUpdate()} stageNum={stage.stage} itinerary={itinerary}/>
+
   return (
-    <Card bg="secondary" text="light">
-      <Card.Header>{stage.stage} - {hostel?.name}</Card.Header>
-      <Card.Body>
-        <Card.Title>Nights: {stage.nights}</Card.Title>
-        <div className="d-flex justify-content-start">
-        <Button variant="outline-light">Update</Button>
-        &nbsp;
-        <Button variant="outline-danger">Delete</Button>
-        </div>
-      </Card.Body>
-    </Card>
+    <Accordion.Item eventKey={eventKey}>
+      <Accordion.Header>{stage.stage} - {hostel?.name}</Accordion.Header>
+      <Accordion.Body>
+        {stageCard}
+        {showHideUpdateStageDialog}
+        {showHideButtons}
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }
 

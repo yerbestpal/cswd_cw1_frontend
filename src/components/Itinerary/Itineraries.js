@@ -5,7 +5,7 @@ import Footer from "../Footer/Footer"
 import FeatherIcon from 'feather-icons-react'
 import ItineraryListItem from "./ItineraryListItem"
 
-const Itineraries = ({hostels}) => {
+const Itineraries = () => {
   const [itineraries, setItineraries] = useState([])
   const [searchString, setSearchString] = useState('')
 
@@ -60,7 +60,7 @@ const Itineraries = ({hostels}) => {
             }
           }).map(itinerary => {
             count++
-            return <ItineraryListItem className='hostelListItem' key={count} itinerary={itinerary} hostels={hostels}/>
+            return <ItineraryListItem className='hostelListItem' key={count} itinerary={itinerary} itineraries={{ itineraries, setItineraries }}/>
           })}
         </ListGroup>
       </Container>

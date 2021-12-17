@@ -6,7 +6,7 @@ import { Loader } from '@googlemaps/js-api-loader'
 import RatingsChart from "../Chart/Chart"
 import Reviews from "../Reviews/Reviews"
 
-const Hostel = ({ hostels }) => {
+const Hostel = () => {
   const { id } = useParams()
   const [hostel, setHostel] = useState()
 
