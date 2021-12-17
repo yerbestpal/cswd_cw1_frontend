@@ -11,29 +11,6 @@ const Itineraries = () => {
   const [searchString, setSearchString] = useState('')
   const [showHideNewItineraryDialog, setShowHideNewItineraryDialog] = useState()
 
-  const showItineraryHideButton = () => {
-    setShowHideNewItineraryDialog(niDialog)
-    setShowHideNewItineraryButton()
-  }
-
-  const hideItineraryShowButton = () => {
-    setShowHideNewItineraryDialog()
-    setShowHideNewItineraryButton(addNewItineraryBtn)
-  }
-
-  const niDialog = <NewItineraryDialog 
-  itineraries={{ itineraries, setItineraries }}
-  hideItineraryShowButton={() => hideItineraryShowButton()}
-/>
-  
-  const addNewItineraryBtn = (
-    <Row className="my-2 mx-1">
-      <Button variant="primary" onClick={() => showItineraryHideButton()}>Create New Itinerary &nbsp; <FeatherIcon icon="plus" size="18"/></Button>
-    </Row>
-  )
-
-  const [showHideNewItineraryButton, setShowHideNewItineraryButton] = useState(addNewItineraryBtn)
-
   useEffect(() => {
     const fetchedItineraries = async () => {
       try {
@@ -50,6 +27,34 @@ const Itineraries = () => {
     }
     fetchedItineraries()
   }, [])
+
+  console.log(itineraries)
+
+  function showItineraryHideButton () {
+    setShowHideNewItineraryDialog(<NewItineraryDialog 
+      setItineraries={setItineraries}
+      hideItineraryShowButton={() => hideItineraryShowButton()}
+    />)
+    setShowHideNewItineraryButton()
+  }
+
+  const hideItineraryShowButton = () => {
+    setShowHideNewItineraryDialog()
+    setShowHideNewItineraryButton(addNewItineraryBtn)
+  }
+
+//   const niDialog = <NewItineraryDialog 
+//   itineraries={{ itineraries, setItineraries }}
+//   hideItineraryShowButton={() => hideItineraryShowButton()}
+// />
+  
+  const addNewItineraryBtn = (
+    <Row className="my-2 mx-1">
+      <Button variant="primary" onClick={() => showItineraryHideButton()}>Create New Itinerary &nbsp; <FeatherIcon icon="plus" size="18"/></Button>
+    </Row>
+  )
+
+  const [showHideNewItineraryButton, setShowHideNewItineraryButton] = useState(addNewItineraryBtn)
 
   let count = 0
   return (

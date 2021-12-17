@@ -29,7 +29,6 @@ const ItineraryListItem = ({ itinerary }) => {
 
   const updateDate = (date) => {
     const getItinerary = async () => {
-      console.log(date)
       const d = date.toString()
       try {
         const response = await fetch(`${dataSource.baseURL}itineraries/startdate/${newItinerary.user}/${d}`, {
