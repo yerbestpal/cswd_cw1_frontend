@@ -81,6 +81,7 @@ const Hostel = () => {
         </Col>
       </Row>
       <RatingsChart hostel={{hostel, setHostel}}/>
+      <p className="fs-3">Total ratings: {hostel?.ratings.length}</p>
       <hr/>
       <Row className="py-5">
         <Col className="col-sm-12 col-md-12">

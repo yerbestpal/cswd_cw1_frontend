@@ -74,7 +74,7 @@ const Itineraries = () => {
                 aria-label="Enter a user's name"
                 aria-describedby="basic-addon1"
                 type='text'
-                onChange={e => setSearchString(e.target.value)}
+                onChange={e => setSearchString(e.currentTarget.value)}
               />
             </InputGroup>
           </Col>
