@@ -3,7 +3,7 @@ import { Card, Button, Row, FloatingLabel, Form, Col } from "react-bootstrap"
 import dataSource from "../../data"
 import FeatherIcon from 'feather-icons-react'
 
-const NewItineraryStageDialog = ({ itinerary, stageNum, stages, hideStageShowButton }) => {
+const NewItineraryStageDialog = ({ itinerary, stageNum, hideStageShowButton }) => {
   const [hostels, setHostels] = useState([])
   const [durationInputValue, setDurationInputValue] = useState('')
   const [hostelInputValue, setHostelInputValue] = useState('')
